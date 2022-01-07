@@ -7,10 +7,12 @@ class {
     }
 
     handleTitleChange(e) {
+        console.log(e);
         this.state.title = e.target.value;
     }
 
     handleBlogTextChange(e) {
+        console.log(e);
         this.state.text = e.target.value;
     }
 
@@ -28,13 +30,13 @@ class {
 }
 
 <div style="display: flex; flex-direction: column;">
-    <input placeholder="Title" on-change("handleTitleChange")>
+    <input value=state.title on-change("handleTitleChange")>
     <textarea
+        value=state.text
         on-change("handleBlogTextChange")
         name="Blog Text"
         rows="8"
         cols="40"
-        placeholder="Blog Text"
     />
     <button on-click("handleClick")>Create Post</button>
 </div>
