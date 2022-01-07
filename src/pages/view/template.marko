@@ -1,24 +1,5 @@
-$ {
-    const POSTS = [
-        {
-            title: "Cool Beans",
-            text: "I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS ",
-        },
-        {
-            title: "Refried Beans",
-            text: "I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS ",
-        },
-        {
-            title: "String Beans",
-            text: "I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS ",
-        },
-    ];
-}
-$ debugger;
-$ console.log(input);
-$ function getPost() {
-    return fetch("localhost:5000/data").then((d) => d.json());
-}
+import getPosts from "../../services/getPosts";
+
 <app-layout>
     <@head>
         <title>Marko Blog Demo</title>
@@ -32,10 +13,10 @@ $ function getPost() {
         <header><a href="/">Home</a></header>
         <h1>The Marko Blog</h1>
         <h2>View Post </h2>
-        <await(getPost())>
+        <await(getPosts())>
             <@then|data|>
-                <h1>${POSTS[input.id].title}</h1>
-                <p>${POSTS[input.id].text}</p>
+                <h1>${data[input.id].title}</h1>
+                <p>${data[input.id].text}</p>
             </@then>
             <@placeholder><div>Loading...</div></@placeholder>
         </await>

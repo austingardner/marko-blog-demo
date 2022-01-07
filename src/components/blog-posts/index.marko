@@ -1,0 +1,11 @@
+import getPosts from "../../services/getPosts";
+
+<await(getPosts())>
+    <@then|data|>
+        <for|post, index| of=data>
+            <a href=`/view?id=${index}`><h2>${post.title}</h2></a>
+            <p>${post.text}</p>
+        </for>
+    </@then>
+    <@placeholder><div>Loading...</div></@placeholder>
+</await>

@@ -1,17 +1,40 @@
 class {
-    handleSubmit(data) {
-        console.log(data);
+    onCreate() {
+        this.state = {
+            title: "",
+            text: "",
+        };
+    }
+
+    handleTitleChange(e) {
+        this.state.title = e.target.value;
+    }
+
+    handleBlogTextChange(e) {
+        this.state.text = e.target.value;
+    }
+
+    handleClick() {
+        console.log("title, text", this.state.title, this.state.text);
         fetch("/services/create", {
             method: "POST",
-            body: JSON.stringify({ data }),
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({
+                title: this.state.title,
+                text: this.state.text,
+            }),
         });
     }
 }
 
-<form>
-    <div style="display: flex; flex-direction: column;">
-        <input placeholder="Title">
-        <textarea name="Blog Text" rows="8" cols="40" placeholder="Blog Text"/>
-        <input type="submit" value="Create Post" on-submit("handleSubmit")>
-    </div>
-</form>
+<div style="display: flex; flex-direction: column;">
+    <input placeholder="Title" on-change("handleTitleChange")>
+    <textarea
+        on-change("handleBlogTextChange")
+        name="Blog Text"
+        rows="8"
+        cols="40"
+        placeholder="Blog Text"
+    />
+    <button on-click("handleClick")>Create Post</button>
+</div>
