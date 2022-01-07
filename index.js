@@ -7,6 +7,7 @@ const port = process.env.PORT || 3000;
 (async () => {
   const app = express()
     .use(compressionMiddleware()) // Enable gzip compression for all HTTP responses.
+    .use(express.json()) // json parser
     .use(markoMiddleware());
 
   if (isProd) {
