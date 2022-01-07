@@ -1,0 +1,17 @@
+class {
+    handleSubmit(data) {
+        console.log(data);
+        fetch("/services/create", {
+            method: "POST",
+            body: JSON.stringify({ data }),
+        });
+    }
+}
+
+<form>
+    <div style="display: flex; flex-direction: column;">
+        <input placeholder="Title">
+        <textarea name="Blog Text" rows="8" cols="40" placeholder="Blog Text"/>
+        <input type="submit" value="Create Post" on-submit("handleSubmit")>
+    </div>
+</form>

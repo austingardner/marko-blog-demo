@@ -1,38 +1,49 @@
-$ const POSTS = [{title: 'Cool Beans', text: 'I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS '}, 
-    {title: 'Refried Beans', text: 'I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS '}, 
-    {title: 'String Beans', text: 'I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS '}
-];
+$ {
+  const POSTS = [
+    {
+      title: "Cool Beans",
+      text: "I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS ",
+    },
+    {
+      title: "Refried Beans",
+      text: "I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS ",
+    },
+    {
+      title: "String Beans",
+      text: "I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS ",
+    },
+  ];
+}
+static function getPosts() {
+  return fetch("/services/getPosts").then((d) => d.json());
+}
 
-<html>
-  <head>
+<app-layout>
+  <@head>
     <title>Marko Blog Demo</title>
     <link
-    href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700"
-    media="all"
-    rel="stylesheet"/>
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700"
+      media="all"
+      rel="stylesheet"
+    >
     <meta charset="UTF-8">
-    <meta name="description" content="An example application showcasing Vite & Marko.">
+    <meta
+      name="description"
+      content="An example application showcasing Vite & Marko."
+    >
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  </head>
-  <body>
-    <header>
-      <a href="/create">
-        Create
-      </a>
-      <h1>
-        The Marko Blog
-      </h1>
-    </header>
-    <for|post, index| of=POSTS>
-      <a href=`/view/${index}`>
-        <h2>
-          ${post.title}
-        </h2>
-      </a>
-      <p>
-        ${post.text}
-      </p>
-    </for>
-  </body>
-</html>
-  
+  </@head>
+  <@body>
+    <header><a href="/create">Create</a><h1>The Marko Blog</h1></header>
+    <await(getPosts())>
+      <@then|data|>
+
+        <for|post, index| of=data>
+          <a href=`/view?id=${index}`><h2>${post.title}</h2></a>
+          <p>${post.text}</p>
+        </for>
+      </@then>
+      <@placeholder><div>Loading...</div></@placeholder>
+    </await>
+  </@body>
+</app-layout>

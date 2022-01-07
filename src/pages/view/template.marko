@@ -1,29 +1,43 @@
-$ const POSTS = [{title: 'Cool Beans', text: 'I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS '}, 
-    {title: 'Refried Beans', text: 'I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS '}, 
-    {title: 'String Beans', text: 'I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS '}
-];
-
+$ {
+    const POSTS = [
+        {
+            title: "Cool Beans",
+            text: "I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS ",
+        },
+        {
+            title: "Refried Beans",
+            text: "I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS ",
+        },
+        {
+            title: "String Beans",
+            text: "I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS I LOVE JS ",
+        },
+    ];
+}
+$ debugger;
+$ console.log(input);
+$ function getPost() {
+    return fetch("localhost:5000/data").then((d) => d.json());
+}
 <app-layout>
     <@head>
-      <title>Marko Blog Demo</title>
-      <link
-        href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700"
-        media="all"
-        rel="stylesheet"/>
+        <title>Marko Blog Demo</title>
+        <link
+            href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700"
+            media="all"
+            rel="stylesheet"
+        >
     </@head>
     <@body>
-      <header>
-        <a href="/">
-          Home
-        </a>
-      </header>
-      <h1>
-        The Marko Blog
-      </h1>
-      <div>
-          <p>
-              Here is a basic blog post. Read me often to discover the secrets of JavaScript
-          </p>
-      </div>
+        <header><a href="/">Home</a></header>
+        <h1>The Marko Blog</h1>
+        <h2>View Post </h2>
+        <await(getPost())>
+            <@then|data|>
+                <h1>${POSTS[input.id].title}</h1>
+                <p>${POSTS[input.id].text}</p>
+            </@then>
+            <@placeholder><div>Loading...</div></@placeholder>
+        </await>
     </@body>
 </app-layout>
